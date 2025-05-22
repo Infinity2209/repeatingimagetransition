@@ -1,25 +1,30 @@
-# Repeating Image Transition
+# Deployment Instructions for Cloudflare Pages
 
-A transition that moves an image in frames (image copies/repetitions) on a path.
+This project is a single-page responsive web app for the 3D T-shirt component with image and text printing.
 
-![Image Title](https://tympanus.net/codrops/wp-content/uploads/2025/04/RepetitionEffect_featured-2.jpg)
+## Deploying on Cloudflare Pages
 
-[Article on Codrops](https://tympanus.net/codrops/?p=92571)
+1. Create a GitHub repository and push this project code to it.
 
-[Demo](https://tympanus.net/Development/RepeatingImageTransition/)
+2. Go to [Cloudflare Pages](https://pages.cloudflare.com/) and create a new project.
 
-## Installation
+3. Connect your GitHub repository to Cloudflare Pages.
 
-Run this demo on a [local server](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/set_up_a_local_testing_server).
+4. For the build settings:
+   - Build command: leave empty (no build step needed)
+   - Build output directory: `.` (root directory)
 
-## Credits
+5. Deploy the site.
 
-- Images generated with [Midjourney](https://midjourney.com)
+Cloudflare Pages will serve the static files directly.
 
-## Misc
+## Notes
 
-Follow Codrops: [Bluesky](https://bsky.app/profile/codrops.bsky.social), [Facebook](http://www.facebook.com/codrops), [GitHub](https://github.com/codrops), [Instagram](https://www.instagram.com/codropsss/), [X](http://www.x.com/codrops)
+- The project uses vanilla JavaScript, CSS, and HTML.
+- No frameworks or build tools are required.
+- The site is responsive and works as a single page.
+- To update the site, push changes to the GitHub repository and redeploy.
 
-## License
+## Optional
 
-[MIT](LICENSE)
+- You can add Tailwind CSS or convert to Lit or Astro if desired, but it is not required for deployment.

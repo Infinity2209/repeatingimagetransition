@@ -1,0 +1,10 @@
+# Cloudflare Pages configuration file
+# This config assumes the project root contains index.html and assets folders
+
+[build]
+command = ""
+publish_dir = "."
+
+[dev]
+command = ""
+port = 8787

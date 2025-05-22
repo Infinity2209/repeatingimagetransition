@@ -1233,18 +1233,18 @@
           </figcaption>
         </figure>
       </div>
-      <!-- panel for large preview -->
-      <figure class="panel" role="img" aria-labelledby="caption">
-        <div class="panel__img" style="background-image: url(assets/img1.webp)"></div>
-        <figcaption class="panel__content" id="caption">
-          <h3>murmur—207</h3>
-          <p>
-            Beneath the soft static of this lies a fragmented recollection of motion—faded pulses echoing through
-            time-warped layers of light and silence. A stillness wrapped in artifact.
-          </p>
-          <button type="button" class="panel__close" aria-label="Close preview">Close</button>
-        </figcaption>
-      </figure>
+      <!-- panel for large preview and 3D tshirt component container -->
+      <div class="product-container">
+        <tshirt-3d id="tshirt3d"></tshirt-3d>
+        <textarea id="tshirtText" placeholder="Enter text for the T-shirt here..."></textarea>
+      </div>
+      <script>
+        const tshirt3d = document.getElementById('tshirt3d');
+        const tshirtText = document.getElementById('tshirtText');
+        tshirtText.addEventListener('input', () => {
+          tshirt3d.setPrintText(tshirtText.value);
+        });
+      </script>
       <footer class="frame frame--footer">
         <span>
           Made by

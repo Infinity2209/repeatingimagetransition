@@ -470,4 +470,46 @@ const resetView = () => {
 preloadImages('.grid__item-image, .panel__img').then(() => {
   document.body.classList.remove('loading');
   init();
+
+  // Sync large image panel with 3D tshirt component uploaded image
+  const tshirt3d = document.querySelector('tshirt-3d');
+  const panelImg = document.querySelector('.panel__img');
+  if (tshirt3d && panelImg) {
+    tshirt3d.addEventListener('image-changed', (e) => {
+      const newSrc = e.detail.src;
+      if (newSrc) {
+        panelImg.style.backgroundImage = `url(${newSrc})`;
+      }
+    });
+  }
+
+  // Sync textarea input with tshirt-3d textContent property
+  const tshirtText = document.getElementById('tshirtText');
+  if (tshirt3d && tshirtText) {
+    tshirtText.addEventListener('input', () => {
+      tshirt3d.textContent = tshirtText.value;
+    });
+  }
+
+  // Add Alt+Q key listener to switch between 3 style versions
+  const productContainer = document.querySelector('.product-container');
+  if (productContainer) {
+    let currentVersion = 1;
+    const totalVersions = 3;
+
+    // Initialize with version1 class
+    productContainer.classList.add('version1');
+
+    document.addEventListener('keydown', (e) => {
+      if (e.altKey && e.key.toLowerCase() === 'q') {
+        e.preventDefault();
+        // Remove current version class
+        productContainer.classList.remove(`version${currentVersion}`);
+        // Increment version
+        currentVersion = currentVersion % totalVersions + 1;
+        // Add new version class
+        productContainer.classList.add(`version${currentVersion}`);
+      }
+    });
+  }
 });
