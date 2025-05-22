@@ -1,5 +1,5 @@
 {
-  "name": "repeating-image-transition",
+  "name": "repeatingimagetransition",
   "compatibility_date": "2025-05-22",
   "main": "worker.js",
   "assets": {
