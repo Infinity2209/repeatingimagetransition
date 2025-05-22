@@ -1,0 +1,7 @@
+{
+    "name": "repeating-image-transition",
+    "compatibility_date": "2025-05-22",
+    "assets": {
+        "directory": "./assets"
+    }
+}

@@ -254,6 +254,14 @@ export class RepeatingImageTransition extends LitElement {
     this.height = 180;
     this.weight = 80;
     this.build = 'athletic';
+
+    // New properties for 3D tshirt and text
+    this.clothingType = 'tshirt';
+    this.printText = '';
+    this.currentLayout = 1;
+
+    // Bind keyboard handler
+    this._onKeyDown = this._onKeyDown.bind(this);
   }
 
   connectedCallback() {
@@ -263,13 +271,14 @@ export class RepeatingImageTransition extends LitElement {
       this.isPanelOpen = false;
       this._init();
     });
+    window.addEventListener('keydown', this._onKeyDown);
   }
 
   render() {
     return html`
-      <main>
+      <main class="product-container version${this.currentLayout}">
         <header class="frame">
-          <h1 class="frame__title">Repeating Image Transition</h1>
+          <h1 class="frame__title">Product Page - Repeating Image Transition</h1>
           <nav class="frame__links">
             <a class="line" href="https://tympanus.net/codrops/?p=92571">More info,</a>
             <a class="line" href="https://github.com/codrops/RepeatingImageTransition/">Code,</a>
@@ -282,11 +291,64 @@ export class RepeatingImageTransition extends LitElement {
           </nav>
         </header>
 
-        <div class="heading">
-          <h2 class="heading__title">Shane Weber</h2>
-          <span class="heading__meta">
-            effect 01: straight linear paths, smooth easing, clean timing, minimal rotation.
-          </span>
+        <div>
+          <img
+            src=${this.selectedItem?.imgUrl || 'assets/img1.webp'}
+            alt="Large print image"
+            class="large-print-image"
+          />
+
+          <section class="product-controls">
+            <label>
+              Height (cm):
+              <input
+                type="number"
+                .value=${this.height}
+                @input=${(e) => (this.height = e.target.valueAsNumber)}
+                min="50"
+                max="250"
+              />
+            </label>
+            <label>
+              Weight (kg):
+              <input
+                type="number"
+                .value=${this.weight}
+                @input=${(e) => (this.weight = e.target.valueAsNumber)}
+                min="20"
+                max="200"
+              />
+            </label>
+            <label>
+              Build:
+              <select
+                .value=${this.build}
+                @change=${(e) => (this.build = e.target.value)}
+              >
+                <option value="lean">Lean</option>
+                <option value="reg">Reg</option>
+                <option value="athletic">Athletic</option>
+                <option value="big">Big</option>
+              </select>
+            </label>
+          </section>
+
+          <tshirt-3d
+            id="tshirt3d"
+            .clothingType=${this.clothingType}
+            .imageSrc=${this.selectedItem?.imgUrl || ''}
+            .printText=${this.printText}
+            @image-changed=${this._onImageChanged}
+            @clothing-changed=${this._onClothingChanged}
+          ></tshirt-3d>
+
+          <textarea
+            id="tshirtText"
+            placeholder="Enter text for the T-shirt here (max 3 lines)..."
+            maxlength="100"
+            @input=${this._onTextInput}
+            .value=${this.printText}
+          ></textarea>
         </div>
 
         <div class="grid">
@@ -302,51 +364,6 @@ export class RepeatingImageTransition extends LitElement {
           )}
         </div>
 
-        <!-- New controls section -->
-        <section class="product-controls">
-          <label>
-            Height (cm):
-            <input
-              type="number"
-              .value=${this.height}
-              @input=${(e) => (this.height = e.target.valueAsNumber)}
-              min="50"
-              max="250"
-            />
-          </label>
-          <label>
-            Weight (kg):
-            <input
-              type="number"
-              .value=${this.weight}
-              @input=${(e) => (this.weight = e.target.valueAsNumber)}
-              min="20"
-              max="200"
-            />
-          </label>
-          <label>
-            Build:
-            <select
-              .value=${this.build}
-              @change=${(e) => (this.build = e.target.value)}
-            >
-              <option value="lean">Lean</option>
-              <option value="reg">Reg</option>
-              <option value="athletic">Athletic</option>
-              <option value="big">Big</option>
-            </select>
-          </label>
-        </section>
-
-        <preview-panel
-          .imgUrl=${this.selectedItem?.imgUrl || ''}
-          .title=${this.selectedItem?.title || ''}
-          .description=${this.selectedItem?.description || ''}
-          .open=${this.isPanelOpen}
-          .panelRight=${this.panelRight}
-          @panel-close=${this._onPanelClose}
-        ></preview-panel>
-
         <footer class="frame frame--footer">
           <span>
             Made by
@@ -361,6 +378,11 @@ export class RepeatingImageTransition extends LitElement {
   _init() {
     this.items = this._getItemsData();
     this.addEventListener('grid-item-click', this._onGridItemClick.bind(this));
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('keydown', this._onKeyDown);
   }
 
   _getItemsData() {
@@ -394,6 +416,7 @@ export class RepeatingImageTransition extends LitElement {
     this.isAnimating = true;
     const { imgUrl, title, description, config } = e.detail;
     this.selectedItem = { imgUrl, title, description, config };
+    this.printText = ''; // reset print text on new image selection
 
     // Determine panel side based on clicked item position
     const clickedItemEl = e.composedPath().find((el) => el.tagName === 'GRID-ITEM');
@@ -785,22 +808,32 @@ export class RepeatingImageTransition extends LitElement {
         );
     };
 
-    const getElementCenter = (el) => {
-      const rect = el.getBoundingClientRect();
-      return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-    };
-
-    const computeStaggerDelays = (clickedItem, items) => {
-      const baseCenter = getElementCenter(clickedItem);
-      const distances = Array.from(items).map((el) => {
-        const center = getElementCenter(el);
-        return Math.hypot(center.x - baseCenter.x, center.y - baseCenter.y);
-      });
-      const max = Math.max(...distances);
-      return distances.map((d) => (d / max) * mergedConfig.gridItemStaggerFactor);
-    };
-
     resetView();
+  }
+
+  _onTextInput(e) {
+    const value = e.target.value;
+    // Limit to max 3 lines
+    const lines = value.split('\\n').slice(0, 3);
+    this.printText = lines.join('\\n');
+    const textarea = this.renderRoot.getElementById('printTextInput');
+    if (textarea) {
+      textarea.value = this.printText;
+    }
+  }
+
+  _onImageChanged(e) {
+    this.selectedItem = { ...this.selectedItem, imgUrl: e.detail.src };
+  }
+
+  _onClothingChanged(e) {
+    this.clothingType = e.detail.type;
+  }
+
+  _onKeyDown(e) {
+    if (e.altKey && e.key.toLowerCase() === 'q') {
+      this.currentLayout = (this.currentLayout % 3) + 1;
+    }
   }
 }
 
