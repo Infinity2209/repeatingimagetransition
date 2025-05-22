@@ -1,3 +1,5 @@
+const API_ENDPOINT = 'https://your-api-server.com/api/data'; // Replace with your actual API endpoint
+
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
 });
@@ -12,6 +14,19 @@ async function handleRequest(request) {
       return await getAssetFromKV(event, { cacheControl: { bypassCache: true } });
     } catch (e) {
       return new Response('Asset not found', { status: 404 });
+    }
+  }
+
+  // Example: Fetch data from external API and return JSON response
+  if (url.pathname === '/api/data') {
+    try {
+      const apiResponse = await fetch(API_ENDPOINT);
+      const data = await apiResponse.json();
+      return new Response(JSON.stringify(data), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch (error) {
+      return new Response('Error fetching data from API', { status: 500 });
     }
   }
 
