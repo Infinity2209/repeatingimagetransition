@@ -1,30 +1,75 @@
-# Deployment Instructions for Cloudflare Pages
+# RepeatingImageTransition
 
-This project is a single-page responsive web app for the 3D T-shirt component with image and text printing.
+## Overview
 
-## Deploying on Cloudflare Pages
+This project is a Single Page Application (SPA) built with LitElement and GSAP that showcases a repeating image transition effect. It includes a home page with a grid of images and a product page with interactive controls and a 3D T-shirt preview.
 
-1. Create a GitHub repository and push this project code to it.
+## Features
 
-2. Go to [Cloudflare Pages](https://pages.cloudflare.com/) and create a new project.
+- Home page with animated grid of images.
+- Product page with image selection, height, weight, build controls.
+- 3D T-shirt preview with customizable print text.
+- Smooth GSAP animations for transitions.
+- Routing between home and product pages using browser history API.
+- Storybook stories for components.
+- Vite build setup.
+- Deployment configuration for Cloudflare Pages.
 
-3. Connect your GitHub repository to Cloudflare Pages.
+## Getting Started
 
-4. For the build settings:
-   - Build command: leave empty (no build step needed)
-   - Build output directory: `.` (root directory)
+### Prerequisites
 
-5. Deploy the site.
+- Node.js (v14 or later)
+- npm
 
-Cloudflare Pages will serve the static files directly.
+### Installation
 
-## Notes
+```bash
+npm install
+```
 
-- The project uses vanilla JavaScript, CSS, and HTML.
-- No frameworks or build tools are required.
-- The site is responsive and works as a single page.
-- To update the site, push changes to the GitHub repository and redeploy.
+### Development
 
-## Optional
+Start the development server with hot reload:
 
-- You can add Tailwind CSS or convert to Lit or Astro if desired, but it is not required for deployment.
+```bash
+npm run dev
+```
+
+Open your browser at `http://localhost:3000` to view the app.
+
+### Building for Production
+
+Build the app for production:
+
+```bash
+npm run build
+```
+
+The output will be in the `dist` directory.
+
+### Running Storybook
+
+To view component stories:
+
+```bash
+npm run storybook
+```
+
+### Deployment
+
+This project is configured for deployment on Cloudflare Pages. Ensure you set your Cloudflare account ID in `cloudflare-pages.toml`.
+
+Build the project and deploy the `dist` directory.
+
+## Project Structure
+
+- `src/` - Source files including components and stories.
+- `css/` - Stylesheets.
+- `dist/` - Production build output.
+- `vite.config.js` - Vite configuration.
+- `cloudflare-pages.toml` - Cloudflare Pages deployment config.
+
+## License
+
+This project is licensed under the MIT License.

@@ -1,0 +1,21 @@
+Create a LIT webcomponents site for customizable POD t-shirt store (If you are very good with React or Astro, you can use one of these frameworks too)
+Part 1 - home page 
+Convert  https://tympanus.net/Development/RepeatingImageTransition/ (here code is explained, https://tympanus.net/codrops/2025/04/28/animating-in-frames-repeating-image-transition/ , repo here https://github.com/codrops/RepeatingImageTransition/) to SPA using Lit web components. NOTE: PAGE YOU CREATE SHOULD BE PIXEL PERFECT COPY OF THE ORIGINAL JUST USING COMPONENTS, TOGETHER WITH ORIGINAL TRANSITION. AFTER DOING, DESCRIBE HOW IT WAS ACHIEVED AND HOW YOU HANDLED STATE MANAGEMENT AND ROUTING
+
+Part 2 - product page
+Using ui from https://codepen.io/jkantner/full/OPJrMbp as a base, and https://codepen.io/jh3y/pen/QWPGwOr for drop down components:
+
+1. replace "Width in Characters" with Height , Weight , Build (lean, reg, athletic, big as options) in Textbox-looking element currently on the right. add those 3 options inside box instead of current 60, using 3 above controls instead of 1. defaults should be  180cm, 80kg, athletic
+2. keep image as is - it will be printed on t-shirt. on top of white space, show the following menu https://codepen.io/jh3y/pen/GRapZqO with choices: tshirt, hoodie, sleevie, cap. Use Using the repository https://github.com/Starklord17/threejs-t-shirt/tree/main for interactive 3d component for each.  Keep showing image to be printed in regular size with its smaller version of inside t-shirt, but allow user to upload their own image by either file upload or drag and drop. in other words - 2 versions of image, one large one on the side and a smaller one inside 3d t shirt. 
+3. Instead of large box currently on the bottom used for display, make it into a text box and allow user to instead type some text to print on t shirt. max 3 lines 
+4. Create 3 very different versions  with varying layouts colors and styles, and use Alt + Q to switch between them. use general styling from here https://codepen.io/jh3y/pen/QWPGwOr 
+5. Deploy as one responsive page on cloudflare. do not use Vercel or any other service except Cloudflare. Do not use NextJS, or Vue or Angular, -  Lit only. You CAN use Astro if you want if you are quite good with them. You can also use Tailwind if you want. 
+6. Show skills and imagination while ensuring consistency between components. Consulting AI is not an issue just explain how it was used. 
+7. When submitting, please send explanation and deploy instructions, deploy link, repo as .GZ gitlab export and your interview availability.
+8. INCORPORATE STORYBOOK INTO WORKFLOW. DESCRIBE HOW YOU DID IT 
+Requested deploy URL as, 1 PAGE, NO HEADER/FOOTER FOR PRODUCT PAGE, NO BACKEND, VITE PREFERRED. Repo and explanation separately
+We will evaluate on both technical and UX. 
+
+Important: Please only proceed if you have excellent knowledge of front end and a minimum of 8.5 GPA (8.1 from top schools)  and decent English. If done well and this position is filled we have few other positions.
+Good luck! 
+

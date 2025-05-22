@@ -240,6 +240,9 @@ export class RepeatingImageTransition extends LitElement {
     height: { type: Number },
     weight: { type: Number },
     build: { type: String },
+
+    // New property to toggle between home and product page
+    isProductPage: { type: Boolean },
   };
 
   constructor() {
@@ -260,6 +263,8 @@ export class RepeatingImageTransition extends LitElement {
     this.printText = '';
     this.currentLayout = 1;
 
+    this.isProductPage = false;
+
     // Bind keyboard handler
     this._onKeyDown = this._onKeyDown.bind(this);
   }
@@ -275,6 +280,25 @@ export class RepeatingImageTransition extends LitElement {
   }
 
   render() {
+    if (!this.isProductPage) {
+      // Render home page UI (grid with images and animation)
+      return html`
+        <div class="grid">
+          ${this.items.map(
+            (item) => html`
+              <grid-item
+                .imgUrl=${item.imgUrl}
+                .title=${item.title}
+                .description=${item.description}
+                .config=${item.config}
+              ></grid-item>
+            `
+          )}
+        </div>
+      `;
+    }
+
+    // Render product page UI
     return html`
       <main class="product-container version${this.currentLayout}">
         <header class="frame">

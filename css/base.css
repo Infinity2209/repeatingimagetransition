@@ -60,6 +60,9 @@
   display: flex;
   gap: 20px;
   margin-top: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Style for 3D component container */
@@ -178,4 +181,42 @@ tshirt-3d {
   font-size: 1.2rem;
   padding: 14px;
   box-shadow: inset 0 0 15px #f06c9b;
+}
+
+/* Adjust grid item images size */
+.grid__item-image {
+  width: 100%;
+  max-width: 200px;
+  max-height: 250px;
+  aspect-ratio: 4 / 5;
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  transition: opacity 0.15s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Style for large print image on product page */
+.large-print-image {
+  display: block;
+  max-width: 300px;
+  max-height: 375px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  object-fit: contain;
+}
+
+/* Refine product container layout for better alignment */
+.product-container > div,
+.product-container > tshirt-3d,
+.product-container > textarea {
+  flex: 1 1 300px;
+  max-width: 400px;
+  margin: 0 10px;
+}
+
+.product-controls {
+  margin-top: 0;
 }

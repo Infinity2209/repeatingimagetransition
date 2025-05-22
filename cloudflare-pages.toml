@@ -1,10 +1,12 @@
-# Cloudflare Pages configuration file
-# This config assumes the project root contains index.html and assets folders
+# Cloudflare Pages configuration for RepeatingImageTransition SPA
+
+project_name = "repeating-image-transition"
+account_id = "<your-account-id>"
 
 [build]
-command = ""
-publish_dir = "."
+command = "npm run build"
+directory = "dist"
 
 [dev]
-command = ""
-port = 8787
+command = "npm run dev"
+port = 3000
